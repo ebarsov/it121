@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Homework Pig Latin</title>
+</head>
+<body>
+
+    <h2>Pig Latin</h2>
+
+    <p>Click on the button to start the Pig Latin</p>
+
+    <input id="demo" type ="text">
+    <input id="output" type = "text">
+    <button onclick="myFunction()">Play!</button>
+    <p id="demo"></p>
+
+    <script>
+    function myFunction() 
+    {
+        document.getElementById('output').value = '';
+        var input = null;
+        var inputConvertedToLowerCase = null;
+        var output = null;
+        var first = null;
+        var second = null;
+
+        input = document.getElementById('demo').value;
+        if(input == null || input == '')
+        {
+            alert('Input can not be translated. Please enter valid word.');
+            return;
+        }
+        else
+         {
+            if (input.length == 1)
+            {
+                alert('Input can not be translated. Please enter more than one letter');
+                return;
+            }
+        }
+            
+        inputConvertedToLowerCase = input.toLowerCase();
+
+        const x = "aeiou";
+        const y = "bcdfghjklmnprstvwyz";
+
+        first = inputConvertedToLowerCase[0];
+      
+        if(x.includes(first))
+        {
+            output = input + "way";
+        }
+        else
+        {
+            second = inputConvertedToLowerCase[1];
+
+            if(!y.includes(second))
+            {
+                output = inputConvertedToLowerCase.substr(1, inputConvertedToLowerCase.length) + 
+                    inputConvertedToLowerCase[0] + "ay";
+            }
+            else
+            {
+                output = inputConvertedToLowerCase.substr(2, inputConvertedToLowerCase.length) + 
+                    inputConvertedToLowerCase[0] + inputConvertedToLowerCase[1] + "ay";
+            }
+        }
+        document.getElementById('output').value = output;
+    }
+
+    </script>
+</body>
+</html>
+
+
