@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Homework #3 "Making the Grade"</title>
+</head>
+
+<body>
+<h2>Making the Grade</h2>>
+
+<script>
+var grades = "jim|25,sue|32,mary|34,ann|22,ted|28,frank|15,lisa|19,mike|30,ahn|26,vishaya|27";
+
+var names = grades.split(",");
+names.sort();
+var scores = [];
+var sum = 0;
+var name = "";
+
+for(i=0; i<=names.length-1; i++) 
+{
+    var element = names[i];
+    name = element.charAt(0).toUpperCase() + element.slice(1, element.length-3);
+    var score = parseInt(element.substring(element.length-2, element.length));
+    scores.push(score);
+    var capitalizedName_score = name + " - " + score;
+
+    document.write(`<br><b> ${capitalizedName_score}<br> `);
+}
+
+var numOfStudents = "Total number of students: " + scores.length;
+var lowestScore = Math.min(...scores);
+var highestScore = Math.max(...scores);
+
+for(i=0; i<=scores.length-1; i++)
+{
+    sum = sum + scores[i];
+}
+var averageScore = sum/scores.length; 
+
+document.write(`<br><b>Lowest Score: </b>${lowestScore}<br>`);
+document.write(`<br><b>Highest Score: </b>${highestScore}<br>`);
+document.write(`<br><b>Average Score: </b>${averageScore}<br>`);
+document.write(`<br><b>Total Number of Students: </b>${scores.length}<br>`);
+
+</script>
+
+</body>
+
+</html>
