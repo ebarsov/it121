@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+</head>
+<body>
+    <h1>Functions & validation</h1>
+
+ First Name: <input type="text" id = "txtFirstName"><br><br>
+ Last Name: <input type="text" id = "txtLastName"><br><br>
+ Password: <input type="text" id = "txtPassword"><br><br>
+ <input type="button"  value="Check"   onclick="validateForm()">
+
+ <script>
+  var passwordLength = false;
+  var upperCase = false;
+  var lowerCase = false;
+  
+  function validatePassword()
+  {
+     var password = String(document.getElementById("txtPassword").value);
+     if(password.length >= 8)
+     {
+        passwordLength = true;
+        for(i=0; i <= password.length-1; i++)
+        {
+            var x = password[i];
+            var y = x.toUpperCase();
+            var z = x.toLowerCase();
+            if(x==y)
+            {
+                upperCase = true;
+            }
+            if(x==z)
+            {
+                lowerCase = true;
+            }
+        }
+     }
+     if(passwordLength & upperCase & lowerCase)
+     {
+        return true;
+     }
+     else
+     {
+        return false;
+     }
+  }
+
+  function validateForm()
+  {
+    var firstName = String(document.getElementById("txtFirstName").value);
+    var lastName = String(document.getElementById("txtLastName").value);
+    
+    if(firstName == "")
+    {
+        alert("Please enter your first name.");
+        return;
+    }
+    if(lastName == "")
+    {
+        alert("Please enter your last name.");
+        return;
+    }
+
+    var testPassword = validatePassword();
+    if(!testPassword)
+    {
+        //alert("Your password is not valid.");
+        if(!passwordLength)
+        {
+            alert("Your password is empty or too short. You need at least eight letters")
+        }
+        else if(!upperCase)
+        {
+           alert("Your password must have at least one uppercase letter."); 
+        }
+        else if(!lowerCase)
+        {
+            alert("Your password must have at least one lowercase letter."); 
+        }
+    }
+    else
+    {
+        alert("All form fields are valid");
+    }
+  }
+ </script>
+</body>
+</html>
