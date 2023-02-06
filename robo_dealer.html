@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+<body>
+
+<h1>Robo Dealer</h1>
+
+  <input type="text"  id="0"><br>
+  <input type="text"  id="1"><br>
+  <input type="text"  id="2"><br>
+  <input type="text"  id="3"><br>
+  <input type="text"  id="4"><br><br>
+  
+  <button onclick="dealHand();">Deal Hand</button>
+  <button onclick="clearBoxes();">Clear</button>
+
+<hr><div id="card_hand"></div>
+
+<script>
+//empty array to store five random numbers
+var randomNumbers = [];
+//empty array to store 52 cards - deck of cards
+var cards = [];
+
+//Major function tied up to the Deal Hand button
+function dealHand()
+{
+    // make deck of 52 cards
+    // function createDeck() is called here
+    createDeck();
+     
+    //Create 5 random numbers
+    for (i=0; i<=4; i++)    // counter from 0 to 4 => 5 cycles
+    { 
+        //Derive a random number with special formula
+        var random = Math.floor(Math.random()* 52);
+        //Place this number in the array
+        randomNumbers.push(random);
+    }
+    //Now, select 5 random cards from the deck, in each card its index
+    //equaling the selected random number
+    for(i=0; i<= 4; i++)
+    {
+        //Find random number corresponding to the index [i]
+        var randomNumber = randomNumbers[i];
+        //Get the card from deck, which has INDEX == random number
+        var result = cards[randomNumber];
+        //Prepare a string to display, which contains card's numVal and suit
+        var result_display = result.numVal + " of " + result.suit;
+        //Display the string on HTML page
+        document.getElementById(i).value = result_display;
+    }
+    //Clear all five random numbers by assigning empty array
+    randomNumbers = [];
+}
+
+//This function is tied up to the Clear button
+function clearBoxes() 
+{ 
+    //For each of the text boxes on HTML page, clear their text
+    for (i=0; i<=4; i++)
+    {
+        document.getElementById(i).value = "";
+    }
+}
+
+//Creates 52 cards and places them into a deck (array 'cards')
+function createDeck()
+{
+    //For each of the 52 cards, create an object
+const Card1  = {numVal: "2", suit: "Diamonds", index: 0}
+    //Add new card to the deck
+    cards.push(Card1);
+    //Create next card
+ const Card2  = {numVal: "3", suit: "Diamond", index: 1}
+    //Add this new card to the deck
+    cards.push(Card2);
+const Card3  = {numVal: "4", suit: "Diamond", index: 2}
+    cards.push(Card3);
+const Card4  = {numVal: "5", suit: "Diamond", index: 3}
+    cards.push(Card4);
+const Card5  = {numVal: "6", suit: "Diamond", index: 4}
+    cards.push(Card5);
+const Card6  = {numVal: "7", suit: "Diamond", index: 5}
+    cards.push(Card6);
+const Card7  = {numVal: "8", suit: "Diamond", index: 6}
+    cards.push(Card7);
+const Card8  = {numVal: "9", suit: "Diamond", index: 7}
+    cards.push(Card8);
+const Card9  = {numVal: "10", suit: "Diamond", index: 8}
+    cards.push(Card9);
+const Card10  = {numVal: "Jack", suit: "Diamond", index: 9}
+    cards.push(Card10);
+const Card11  = {numVal: "Queen", suit: "Diamond", index: 10}
+    cards.push(Card11);
+const Card12  = {numVal: "King", suit: "Diamond", index: 11}
+    cards.push(Card12);
+const Card13  = {numVal: "Ace", suit: "Diamond", index: 12}
+    cards.push(Card13);
+const Card14  = {numVal: "2", suit: "Heart", index: 13}
+    cards.push(Card14);
+ const Card15  = {numVal: "3", suit: "Heart", index: 14}
+    cards.push(Card15);
+const Card16  = {numVal: "4", suit: "Heart", index: 15}
+    cards.push(Card16);
+const Card17  = {numVal: "5", suit: "Heart", index: 16}
+    cards.push(Card17);
+const Card18  = {numVal: "6", suit: "Heart", index: 17}
+    cards.push(Card18);
+const Card19  = {numVal: "7", suit: "Heart", index: 18}
+    cards.push(Card19);
+const Card20  = {numVal: "8", suit: "Heart", index: 19}
+    cards.push(Card20);
+const Card21  = {numVal: "9", suit: "Heart", index: 20}
+    cards.push(Card21);
+const Card22  = {numVal: "10", suit: "Heart", index: 21}
+    cards.push(Card22);
+const Card23  = {numVal: "Jack", suit: "Heart", index: 22}
+    cards.push(Card23);
+const Card24  = {numVal: "Queen", suit: "Heart", index: 23}
+    cards.push(Card24);
+const Card25  = {numVal: "King", suit: "Heart", index: 24}
+    cards.push(Card25);
+const Card26  = {numVal: "Ace", suit: "Heart", index: 25}
+    cards.push(Card26);
+const Card27  = {numVal: "2", suit: "Club", index: 26}
+    cards.push(Card27);
+const Card28  = {numVal: "3", suit: "Club", index: 27}
+    cards.push(Card28);
+const Card29  = {numVal: "4", suit: "Club", index: 28}
+    cards.push(Card29);
+const Card30  = {numVal: "5", suit: "Club", index: 29}
+    cards.push(Card30);
+const Card31  = {numVal: "6", suit: "Club", index: 30}
+    cards.push(Card31);
+const Card32  = {numVal: "7", suit: "Club", index: 31}
+    cards.push(Card32);
+const Card33  = {numVal: "8", suit: "Club", index: 32}
+    cards.push(Card33);
+const Card34  = {numVal: "9", suit: "Club", index: 33}
+    cards.push(Card34);
+const Card35  = {numVal: "10", suit: "Club", index: 34}
+    cards.push(Card35);
+const Card36  = {numVal: "Jack", suit: "Club", index: 35}
+    cards.push(Card36);
+const Card37  = {numVal: "Queen", suit: "Club", index: 36}
+    cards.push(Card37);
+const Card38  = {numVal: "King", suit: "Club", index: 37}
+    cards.push(Card38);
+const Card39  = {numVal: "Ace", suit: "Club", index: 38}
+    cards.push(Card39);
+const Card40  = {numVal: "2", suit: "Spade", index: 39}
+    cards.push(Card40);
+const Card41  = {numVal: "3", suit: "Spade", index: 40}
+    cards.push(Card41);
+const Card42  = {numVal: "4", suit: "Spade", index: 41}
+    cards.push(Card42);
+const Card43  = {numVal: "5", suit: "Spade", index: 42}
+    cards.push(Card43);
+const Card44  = {numVal: "6", suit: "Spade", index: 43}
+    cards.push(Card44);
+const Card45  = {numVal: "7", suit: "Spade", index: 44}
+    cards.push(Card45);
+const Card46  = {numVal: "8", suit: "Spade", index: 45}
+    cards.push(Card46);
+const Card47  = {numVal: "9", suit: "Club", index: 46}
+    cards.push(Card47);
+const Card48  = {numVal: "10", suit: "Spade", index: 47}
+    cards.push(Card48);
+const Card49  = {numVal: "Jack", suit: "Spade", index: 48}
+    cards.push(Card49);
+const Card50  = {numVal: "Queen", suit: "Spade", index: 49}
+    cards.push(Card50);
+const Card51  = {numVal: "King", suit: "Spade", index: 50}
+    cards.push(Card51);
+const Card52  = {numVal: "Ace", suit: "Spade", index: 51}
+    cards.push(Card52);
+}
+
+</script>
+
+</body>
+</html>
