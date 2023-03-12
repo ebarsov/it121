@@ -1,0 +1,340 @@
+<!doctype html>
+
+<html>
+    <head title="Sunny-Aswesome">
+        <title>Sunny-Aswesome</title>
+       
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+
+<body>
+        <h1>Sunny with Chance of Awesome</h1>
+        <h2>Please enter city:</h2>
+
+        <input type="text" id="cityName" placeholder="Enter a City" autocomplete="off" onchange="reload();">
+        <button onclick="getWeather();">Get Weather</button>
+        <br>
+        <br>
+        <div id="node-id"></div> 
+
+    <table id="0" style="width:30%" nclass="table">
+        <tbody>
+        <thead id="_0">
+            <br>
+        </thead>
+        </tbody>
+    </table>
+
+    <table id="1" style="width:30%">
+        <tbody>
+        <thead id="_1">
+            <br>
+        </thead>
+        </tbody>
+    </table>
+
+    <table id="2" style="width:30%">
+        <tbody>
+        <thead id="_2">
+            <br>
+        </thead>
+        </tbody>
+    </table>
+
+    <table id="3" style="width:30%">
+        <tbody>
+            <thead id="_3">
+            <br>
+        </thead>
+        </tbody>
+    </table>
+
+    <table id="4" style="width:30%">
+        <tbody>
+        <thead id="_4">
+            <br>
+        </thead>
+        </tbody>
+    </table>
+
+    <script>
+
+       var fiveDaysArray = [];
+        
+       //Class to contain weather data for a given date
+        class WeatherObject
+        {
+            constructor(dt_txt, date, temp_min, temp_max, humidity, description, icon)
+            {
+               this.dt_txt = dt_txt;
+               this.date = date;
+               this.temp_min = temp_min;
+               this.temp_max = temp_max;
+               this.humidity = humidity;
+               this.description = description;
+               this.icon = icon;
+            }
+        }
+        //Personal key to get data from openweathermap API
+        const appID = '2b1f138a1ebc68fed9f4922be2011541';
+
+        //Getting weather data 
+        function getWeather()
+        {
+            try
+            {
+                //Read user-entered city name from web page
+                var cityName = document.getElementById("cityName").value;
+
+                //Prevent user from leaving city box empty
+                if(cityName == '')
+                {
+                    alert("Please enter city name.");
+                    return;
+                }
+                
+                //Set up urls
+                const cityUrl = new URL('http://api.openweathermap.org/geo/1.0/direct?&limit=5');
+                const weatherUrl = new URL('http://api.openweathermap.org/data/2.5/forecast?');
+                const iconUrl = new URL('https://openweathermap.org/img/wn/');
+
+                //Construct cityUrl by appending user-requested city and personal API key
+                cityUrl.searchParams.append("q", cityName);
+                cityUrl.searchParams.append("appid", appID);
+                
+                //Call async function getData to load and display weather for user-selected city
+                var fetchResult = getData(cityUrl, weatherUrl, iconUrl).then(data => {postWeatherData();});
+            }
+            catch(Error)
+            {
+                 console.log(Error);
+            }
+        }
+       
+        //Function to display weather data on the web page
+        function postWeatherData()
+        {
+            try
+            {
+                //For each of the five days, create recird from fiveDaysArray
+                for(var i = 0; i <= fiveDaysArray.length - 1; i++)
+                {
+                    //Create title
+                    var div = document.getElementById("node-id");
+                    div.innerText = "Five days weather forecast: ";
+            
+                    //Define table style
+                    var table = document.getElementById(i);
+                    table.style.border = "1px solid black";
+
+                    //Define table head style
+                    var thead = document.getElementById("_"+i);
+                    thead.style.border = "1px solid black";
+
+                    //Display date
+                    var date = fiveDaysArray[i].date;
+                    //Create an empty <tr> element and add it to the 1st position of the table:
+                    var row = table.insertRow(0);
+
+                    //Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.style.border = "1px solid black";
+                    cell2.style.border = "1px solid black";
+
+                    //Add some text to the new cells:
+                    cell1.innerHTML = "Date:";
+                    cell2.innerHTML = date;
+
+                    //Dispaly temperatures
+                    var tempMin = fiveDaysArray[i].temp_min;
+                    var tempMax = fiveDaysArray[i].temp_max;
+
+                    var row = table.insertRow(1);
+                    var cell3 = row.insertCell(0);
+                    var cell4 = row.insertCell(1);
+                    cell3.style.border = "1px solid black";
+                    cell4.style.border = "1px solid black";
+                 
+                    cell3.innerHTML = "Temeperature(Min/Max):";
+                    cell4.innerHTML = tempMin + "/" + tempMax
+                    
+
+                    //Display humidity
+                    var humidity = fiveDaysArray[i].humidity;
+
+                    var row = table.insertRow(2);
+                    var cell5 = row.insertCell(0);
+                    var cell6 = row.insertCell(1);
+                    cell5.style.border = "1px solid black";
+                    cell6.style.border = "1px solid black";
+                   
+                    cell5.innerHTML = "Humidity:";
+                    cell6.innerHTML = humidity;
+
+                    //Display description
+                    var description = fiveDaysArray[i].description;
+
+                    var row = table.insertRow(3);
+                    var cell7 = row.insertCell(0);
+                    var cell8 = row.insertCell(1);
+                    cell7.style.border = "1px solid black";
+                    cell8.style.border = "1px solid black";
+                    cell7.innerHTML = "Description:";
+                    cell8.innerHTML = description;
+
+                    //Display weather icon 
+                    var icon = fiveDaysArray[i].icon;
+                    var href = URL.createObjectURL(icon);
+                  
+                    var image = document.createElement("img");
+                    image.src = href;
+                    
+                    var row = table.insertRow(4);
+                    var cell9 = row.insertCell(0);
+                    var cell10 = row.insertCell(1);
+                    cell9.style.border = "1px solid black";
+                    cell10.style.border = "1px solid black";
+
+                    cell9.innerHTML = "Icon:";
+                    cell10.append(image);
+                }
+            }
+            catch(Error)
+            {
+                console.log(Error);
+            }
+        }
+
+        //Central async function to get wether data
+        async function getData(cityUrl, weatherUrl, iconUrl)
+        {   
+            try
+            {
+                //Declare arrays to contain city and weather objects
+                var cityObjects = [];
+                var weatherObjects = [];
+                var weatherArray;
+
+                //Get city longitude and lattitude by city name entered as  a part of cityUrl
+                const response_city = await fetch(cityUrl);
+
+                if(response_city.status != 200)
+                {
+                    alert("Fetch failed to get city data.");
+                    return;
+                }
+                try
+                {
+                    //Retrieve city data for all cities with user-requested name
+                    const city_data = await response_city.json().then(city => city.forEach((city_item) => {cityObjects.push(city_item)}));
+                }
+                catch(Error)
+                {
+                    console.log(Error);
+                }
+
+                //Extract lattitude (lat), longitude (lon), and country name from city data
+                const lat = cityObjects[0]["lat"];
+                const lon = cityObjects[0]["lon"];
+                const country = cityObjects[0]["country"];
+
+                //Prevent user from querying a non-US city
+                if(country != 'US')
+                {
+                    alert("Please enter US city.");
+                    location.reload();
+                }
+
+                //Construct weatherUrl by appending city lattitude and longitude + API key
+                weatherUrl.searchParams.append("lat", lat);
+                weatherUrl.searchParams.append("lon", lon);
+                weatherUrl.searchParams.append("appid", appID);
+
+                //Call weather API
+                const response_weather = await fetch(weatherUrl);
+
+                if(response_weather.status != 200)
+                {
+                    alert("Fetch failed to get weather data.");
+                    return;
+                }
+
+                //Get weather data
+                const weather_data = await response_weather.json();
+                
+                //Extract weather data from API response
+                var objArray = weather_data[7];
+
+                for(let i in weather_data)
+                {
+                    weatherObjects.push(i, weather_data[i]);
+                } 
+
+                weatherArray = weatherObjects[7]; 
+
+                for(var i = 0; i <= weatherArray.length - 1;i++)
+                {
+                    //Check if the data for a specific date is already added
+                    const hasDayRecord = fiveDaysArray.some(function(record) 
+                    {
+                         return String(record.dt_txt).slice(0, 10) === String(weatherArray[i].dt_txt).slice(0, 10);
+                    })
+
+                    //If not, then proceed with getting the data for 5 days
+                    if(!hasDayRecord && fiveDaysArray.length < 5)
+                    {
+                        //Create new WeatherObject to hold one day's data
+                        var dayRecord = new WeatherObject();
+                        var main = weatherArray[i]["main"];
+                        var weather = weatherArray[i]["weather"];
+                        var weather_main = weather[0];
+                        var weather_icon = weather_main.icon;
+
+                        //Fill object's fields with data from request
+                        dayRecord.dt_txt = weatherArray[i].dt_txt
+                        dayRecord.date = convertDate(weatherArray[i].dt);
+                        dayRecord.temp_min = kToF(main.temp_min); //convert Kelvin to Fahrenheit
+                        dayRecord.temp_max = kToF(main.temp_max); //convert kelvin to Fahrenheit
+                        dayRecord.humidity = main.humidity;
+                        dayRecord.description = weather_main.description;
+
+                        //Construct URL for getting icons
+                        var _iconUrl = iconUrl + weather_icon + '@2x.png';
+
+                        //Request appropriate icon
+                        const response_icon = await fetch(_iconUrl);
+                        const icon = await response_icon.blob();
+                        dayRecord.icon = icon; 
+                        //Add WeatherObject to the array
+                        fiveDaysArray.push(dayRecord);
+                    } 
+                }
+
+                return response_weather;
+            }
+            catch(Error)
+            {
+                console.log(Error);
+            }
+        }
+
+        //Function to convert UNIX timestamp to date
+        function convertDate(API_Date)
+        {   
+            var date = new Date(API_Date * 1000);
+            return date.toLocaleDateString()
+        }
+
+        //Function to convert Kelvin to Fahrenheit
+        function kToF(value)
+        {
+            let fahrenheit = (((Number(value) - 273.15)*9)/5) + 32;
+            return fahrenheit.toFixed(2);
+        }
+
+    </script>
+    </body>
+</html>
+
+
