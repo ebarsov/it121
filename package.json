@@ -1,0 +1,26 @@
+{ 
+  "dependencies": {
+    "app-root-path": "^3.1.0"
+  },
+  "name": "test package.json",
+  "version": "1.0.0",
+  "description": "My package.json",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "test package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebarsov/it121.git"
+  },
+  "keywords": [
+    "IT121"
+  ],
+  "author": "ELENA BARSOV",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebarsov/it121/issues"
+  },
+  "homepage": "https://github.com/ebarsov/it121#readme"
+}
