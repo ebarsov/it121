@@ -1,0 +1,35 @@
+<html>
+<h1>Animation</h1>
+<canvas id="canvas" width="600" height="300" style="border: 2px solid"></canvas>
+
+<script>
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+ 
+
+//animation
+const size = 40;
+ctx.fillStyle = 'blue';
+
+for (let x = 0; x < canvas.width; x += size) {
+  ctx.fillRect(x, 100, size, size);
+}
+
+for (let x = 0; x < canvas.width; x += size) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clean up
+  ctx.fillRect(x, 100, size, size);
+}
+
+let x = 0;
+const id = setInterval(() => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);      
+  ctx.fillRect(x, 100, size, size);
+  x += size;
+
+  if (x >= canvas.width) {
+    clearInterval(id);
+  }
+}, 200); 
+
+</script>
+ </html>
