@@ -1,0 +1,66 @@
+<html>
+<head>
+<h1>Using arcTo method</h1>
+</head>
+
+<body>
+<canvas id="arcTo" class="grid" width="500" height="300"></canvas>
+    <script>
+        const arcToCanvas = document.getElementById('arcTo');
+        const ctxArcTo = arcToCanvas.getContext('2d');
+
+        // Tangent line (Касательные линия)
+        ctxArcTo.beginPath();
+        ctxArcTo.strokeStyle = 'gray';
+        ctxArcTo.moveTo(200, 120);
+        ctxArcTo.lineTo(200, 230);
+        ctxArcTo.lineTo(50, 120);
+        ctxArcTo.lineTo(200, 230);
+        ctxArcTo.lineTo(350, 120);
+        ctxArcTo.stroke();
+        //  Left arc (Левая дуга) 
+        ctxArcTo.beginPath();
+        ctxArcTo.strokeStyle = 'black';
+        ctxArcTo.lineWidth = 5;
+        ctxArcTo.moveTo(200, 120);
+        ctxArcTo.arcTo(200, 230, 50, 120, 40);
+
+        ctxArcTo.stroke();
+
+        // Starting point  (Начальная точка)
+        ctxArcTo.beginPath();
+        ctxArcTo.fillStyle = 'blue';
+        ctxArcTo.arc(200, 120, 5, 0, 2 * Math.PI);
+        ctxArcTo.fill();
+        // Right arc  (Правая дуга) 
+        ctxArcTo.beginPath();
+        ctxArcTo.strokeStyle = 'black';
+        ctxArcTo.lineWidth = 5;
+        ctxArcTo.moveTo(200, 120);
+        ctxArcTo.arcTo(200, 230, 350, 120, 40);
+        //  Big circle   (Большой круг)
+        ctxArcTo.stroke();
+        ctxArcTo.beginPath();
+        ctxArcTo.arc(200, 120, 120, 0, 2 * Math.PI);
+        ctxArcTo.stroke();
+        //  Eyes  (Глаза)
+        ctxArcTo.beginPath();
+        ctxArcTo.fillStyle = 'black';
+        ctxArcTo.arc(150, 100, 10, 0, 2 * Math.PI);
+        ctxArcTo.arc(250, 100, 10, 0, 2 * Math.PI);
+        ctxArcTo.fill();
+        // Checkpoints   (Контрольные точки)
+        ctxArcTo.beginPath();
+        ctxArcTo.fillStyle = 'red';
+        ctxArcTo.arc(200, 230, 5, 0, 2 * Math.PI); // First checkpoint   (Первая контрольная точка)
+        ctxArcTo.closePath();
+        ctxArcTo.arc(50, 120, 5, 0, 2 * Math.PI); // Second checkpoint   (Вторая контрольная точка)
+        ctxArcTo.closePath();
+        ctxArcTo.arc(350, 120, 5, 0, 2 * Math.PI); // Third checkpoint   (Третья контрольная точка)
+        ctxArcTo.fill();
+
+</script>
+
+</body>
+
+</html>
